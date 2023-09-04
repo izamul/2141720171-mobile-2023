@@ -10,4 +10,5 @@ void main() {
   print("NIM    : $nim");
   print("Absen  : $absen");
   print("==============================================");
+
 }
