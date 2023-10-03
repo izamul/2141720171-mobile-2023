@@ -418,12 +418,341 @@ class _MyHomePageState extends State<MyHomePage> {
 ## Tugas 02
 Pada praktikum 4 mulai dari Langkah 3 sampai 6, buatlah file widget tersendiri di folder basic_widgets, kemudian pada file main.dart cukup melakukan import widget sesuai masing-masing langkah tersebut!
 
+### Jawaban Langkah 3
+
+**Isi kode program main.dart**
+
+```dart
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:hello_world/basic_widgets/scaffold_widget.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: const MyHomePage(title: 'My Increment App'),
+    );
+  }
+}
+```
+
+**Isi kode program scaffol_widget.dart**
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  // Variable/State untuk mengambil tanggal
+  DateTime selectedDate = DateTime.now();
+
+  //  Initial SelectDate FLutter
+  Future<void> _selectDate(BuildContext context) async {
+    // Initial DateTime FIinal Picked
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text("${selectedDate.toLocal()}".split(' ')[0]),
+            const SizedBox(
+              height: 20.0,
+            ),
+            ElevatedButton(
+              onPressed: () => {
+                _selectDate(context),
+                // ignore: avoid_print
+                print(selectedDate.day + selectedDate.month + selectedDate.year)
+              },
+              child: const Text('Pilih Tanggal'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+**Hasil run program**
+
+![hasil](docs/t2l3.png)
+
+![hasil](docs/t2l3b.png)
+
+<hr>
+
+### Jawaban Langkah 4
+
+**Isi kode program main.dart**
+
+```dart
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:hello_world/basic_widgets/dialog_widget.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: Scaffold(
+        body: MyLayout(),
+      ),
+    );
+  }
+}
+```
+
+**Isi kode program dialog_widget.dart**
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyLayout extends StatelessWidget {
+  const MyLayout({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        child: const Text('Show alert'),
+        onPressed: () {
+          showAlertDialog(context);
+        },
+      ),
+    );
+  }
+}
+
+showAlertDialog(BuildContext context) {
+  // set up the button
+  Widget okButton = TextButton(
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("My title"),
+    content: const Text("This is my message."),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+```
+
+**Hasil run program**
+
+![hasil](docs/t2l4.png)
+
+<hr>
+
+### Jawaban Langkah 5
+
+**Isi kode program main.dart**
+
+```dart
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:hello_world/basic_widgets/text_field_widget.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MyTextField();
+  }
+}
+```
+
+**Isi kode program text_field_widget.dart**
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyTextField extends StatelessWidget
+{
+  const MyTextField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Contoh TextField")),
+        body: const TextField(
+          obscureText: false,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Nama',
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+**Hasil run program**
+
+![hasil](docs/t2l5.png)
+
+<hr>
+
+### Jawaban Langkah 6
+
+**Isi kode program main.dart**
+
+```dart
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:hello_world/basic_widgets/date_picker_widget.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Contoh Date Picker',
+      home: MyHomePage(title: 'Contoh Date Picker'),
+    );
+  }
+}
+```
+
+**Isi kode program data_picker_widget.dart**
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  // Variable/State untuk mengambil tanggal
+  DateTime selectedDate = DateTime.now();
+
+  //  Initial SelectDate FLutter
+  Future<void> _selectDate(BuildContext context) async {
+    // Initial DateTime FIinal Picked
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text("${selectedDate.toLocal()}".split(' ')[0]),
+            const SizedBox(
+              height: 20.0,
+            ),
+            ElevatedButton(
+              onPressed: () => {
+                _selectDate(context),
+                // ignore: avoid_print
+                print(selectedDate.day + selectedDate.month + selectedDate.year)
+              },
+              child: const Text('Pilih Tanggal'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+**Hasil run program**
+
+![hasil](docs/t2l6.png)
+
 <hr>
 
 ## Tugas 03
 Selesaikan [Codelabs: Your first Flutter app](https://codelabs.developers.google.com/codelabs/flutter-codelab-first#0), lalu buatlah laporan praktikumnya dan push ke repository GitHub Anda!
 
+
+
 <hr>
 
 ## Tugas 4
 README.md berisi: capture hasil akhir tiap praktikum (side-by-side, bisa juga berupa file GIF agar terlihat proses perubahan ketika ada aksi dari pengguna) di browser dan perangkat fisik (device) dengan menampilkan NIM dan Nama Anda sebagai ciri pekerjaan Anda. Jika mode developer di perangkat HP Anda belum aktif, silakan cari di internet cara mengaktifkannya!
+
+
+
