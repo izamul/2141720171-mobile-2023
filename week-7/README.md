@@ -418,16 +418,51 @@ Widget textSection = Container(
 
 Dengan memberi nilai softWrap = true, baris teks akan memenuhi lebar kolom sebelum membungkusnya pada batas kata.
 
-*Hasil*
-
-![hasil](docs/p3.png)
-
 **Langkah 02: Tambahkan variabel text section ke body**
 
 Tambahkan widget variabel textSection ke dalam body seperti berikut:
 
+![hasil](docs/p3l2.png)
+
+*Hasil*
+
+![hasil](docs/p3.png)
+
+<hr>
+
+### Praktikum 04: Implementasi image section
+
+Selesaikan langkah-langkah praktikum berikut ini dengan melanjutkan dari praktikum sebelumnya.
+
+**Langkah 1: Siapkan aset gambar**
+
+Anda dapat mencari gambar di internet yang ingin ditampilkan. Buatlah folder images di root project layout_flutter. Masukkan file gambar tersebut ke folder images, lalu set nama file tersebut ke file pubspec.yaml seperti berikut:
+
+![hasil](docs/p4l1.png)
+
+Contoh nama file gambar di atas adalah lake.jpg
+
+    Tips
+
+    - Perhatikan bahwa pubspec.yaml sensitif terhadap huruf besar-kecil, jadi tulis assets: dan URL gambar seperti yang ditunjukkan di atas.
+    - File pubspec juga sensitif terhadap spasi, jadi gunakan indentasi yang tepat.
+    - Anda mungkin perlu memulai ulang program yang sedang berjalan (baik di simulator atau perangkat yang terhubung) agar perubahan pubspec dapat diterapkan.
+
+**Langkah 2: Tambahkan gambar ke body**
+
+Tambahkan aset gambar ke dalam body seperti berikut:
+
+![hasil](docs/p4l2.png)
+
+BoxFit.cover memberi tahu kerangka kerja bahwa gambar harus sekecil mungkin tetapi menutupi seluruh kotak rendernya.
 
 
+**Langkah 3: Terakhir, ubah menjadi ListView**
 
+Pada langkah terakhir ini, atur semua elemen dalam ListView, bukan Column, karena ListView mendukung scroll yang dinamis saat aplikasi dijalankan pada perangkat yang resolusinya lebih kecil.
 
+![hasil](docs/p4l3.png)
 
+*Hasil*
+
+![hasil](docs/p4.png)
