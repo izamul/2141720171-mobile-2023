@@ -481,3 +481,361 @@ Pada langkah terakhir ini, atur semua elemen dalam ListView, bukan Column, karen
     jawab: Masih sedang dicicil
 
 3. Kumpulkan link commit repository GitHub Anda ke spreadsheet yang telah disediakan!
+
+<hr>
+
+## Tugas 2: Basic Flutter Layout Concepts
+
+### Row & Column Classes
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyWidgetApp());
+}
+
+class MyWidgetApp extends StatelessWidget {
+  const MyWidgetApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('My Widget App'),
+        ),
+        body: MyWidget(),
+      ),
+    );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        BlueBox(),
+        BlueBox(),
+        BlueBox(),
+      ],
+    );
+  }
+}
+
+class BlueBox extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        border: Border.all(),
+      ),
+    );
+  }
+}
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/rowcolumnclasses.png)
+
+<hr>
+
+### mainAxisSize property
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyWidgetApp());
+}
+
+class MyWidgetApp extends StatelessWidget {
+  const MyWidgetApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('My Widget App'),
+        ),
+        body: Column(
+          children: [
+            Text('MainAxisSize.min:'),
+            MyWidget(mainAxisSize: MainAxisSize.min),
+            SizedBox(height: 20),
+            Text('MainAxisSize.max:'),
+            MyWidget(mainAxisSize: MainAxisSize.max),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  final MainAxisSize mainAxisSize;
+
+  MyWidget({required this.mainAxisSize});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: mainAxisSize,
+      children: [
+        BlueBox(width: 50),
+        BlueBox(width: 100),
+        BlueBox(width: 75),
+      ],
+    );
+  }
+}
+
+class BlueBox extends StatelessWidget {
+  final double width;
+
+  BlueBox({required this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        border: Border.all(),
+      ),
+    );
+  }
+}
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/mainaxissize.png)
+
+<hr>
+
+### crossAxisAlignment property
+
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/mainaxissize.png)
+
+<hr>
+
+
+### mainAxisAlignment property
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyWidgetApp());
+}
+
+class MyWidgetApp extends StatelessWidget {
+  const MyWidgetApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('My Widget App'),
+        ),
+        body: Column(
+          children: [
+            Text('MainAxisAlignment.start:'),
+            MyWidget(mainAxisAlignment: MainAxisAlignment.start),
+            SizedBox(height: 20),
+            Text('MainAxisAlignment.end:'),
+            MyWidget(mainAxisAlignment: MainAxisAlignment.end),
+            SizedBox(height: 20),
+            Text('MainAxisAlignment.center:'),
+            MyWidget(mainAxisAlignment: MainAxisAlignment.center),
+            SizedBox(height: 20),
+            Text('MainAxisAlignment.spaceBetween:'),
+            MyWidget(mainAxisAlignment: MainAxisAlignment.spaceBetween),
+            SizedBox(height: 20),
+            Text('MainAxisAlignment.spaceEvenly:'),
+            MyWidget(mainAxisAlignment: MainAxisAlignment.spaceEvenly),
+            SizedBox(height: 20),
+            Text('MainAxisAlignment.spaceAround:'),
+            MyWidget(mainAxisAlignment: MainAxisAlignment.spaceAround),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  final MainAxisAlignment mainAxisAlignment;
+
+  MyWidget({required this.mainAxisAlignment});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: mainAxisAlignment,
+      children: [
+        BlueBox(width: 50),
+        BlueBox(width: 100),
+        BlueBox(width: 75),
+      ],
+    );
+  }
+}
+
+class BlueBox extends StatelessWidget {
+  final double width;
+
+  BlueBox({required this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        border: Border.all(),
+      ),
+    );
+  }
+}
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/mainaxisalg.png)
+
+<hr>
+
+### Flexible widget
+
+#### Example: Changing fit properties
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/.png)
+
+<hr>
+
+#### Example: Testing flex values
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/.png)
+
+<hr>
+
+### Expanded widget
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/.png)
+
+<hr>
+
+### SizedBox widget
+
+#### Example: Resizing a widget
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/.png)
+
+<hr>
+
+#### Example: Creating space
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/.png)
+
+<hr>
+
+### Spacer widget
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/.png)
+
+<hr>
+
+### Text widget
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/.png)
+
+<hr>
+
+### Icon widget
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/.png)
+
+<hr>
+
+### Image widget
+
+```dart
+
+```
+
+**Hasil**
+
+![hasil](docs/tugas2/.png)
+
+<hr>
+
+### Putting it all together
+
+
