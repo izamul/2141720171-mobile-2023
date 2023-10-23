@@ -177,3 +177,164 @@ class Item {
 
 ![hasil](docs/l6.png)
 
+### Langkah  7: Menambahkan aksi pada ListView
+
+Sebelumnya, saya ingin berterima kasih kepada Ilham Yudantyo yang membantu saya menyelesaikan langkah ke-7 ini,
+
+berikut kode program masing-masing file,
+
+#### main.dart
+```dart
+import 'package:flutter/material.dart';
+import 'package:shop/pages/home_page.dart';
+import 'pages/item_page.dart';
+
+void main() {
+  runApp(MaterialApp(
+        routes: {
+      '/': (context) => HomePage(), // Route untuk MainApp
+    },
+    initialRoute: '/', // Menunjuk ke route pertama
+  ));
+}   
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+        title: const Text('Shopping List'),
+      )),
+    );
+  }
+}
+```
+
+#### Item.dart
+```dart
+class Item {
+  final String name;
+  final int price;
+
+  Item({required this.name, required this.price});
+}
+```
+
+#### home_page.dart
+```dart
+import 'package:flutter/material.dart';
+import 'package:shop/models/Item.dart';
+import 'package:shop/pages/item_page.dart';
+
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
+
+  final List<Item> Items = [
+    Item(name: 'Sugar', price: 5000),
+    Item(name: 'Salt', price: 2000),
+    Item(name: 'Sepatu', price: 20000),
+    Item(name: 'Mouse', price: 150000),
+    Item(name: 'Beras', price: 12000),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+       routes: {
+        ItemPage.routeName: (context) =>
+            const ItemPage(),
+      },
+      home: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.green,
+            title: const Text('Shopping List'),
+          ),
+          body: Container(
+            margin: const EdgeInsets.all(8),
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: Items.length,
+              itemBuilder: (context, index) {
+                final item = Items[index];
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, ItemPage.routeName, arguments: item);
+                  },
+                  child: Card(
+                    child: Container(
+                      margin: const EdgeInsets.all(8),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.name,
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  'Rp ${item.price}',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ),
+                          TextButton(
+                            style: const ButtonStyle(
+                                foregroundColor:
+                                    MaterialStatePropertyAll(Colors.green)),
+                            onPressed: () {},
+                            child: const Text('Add to cart'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          )),
+    );
+  }
+}
+```
+
+#### item_page.dart
+```dart
+import 'package:flutter/material.dart';
+import 'package:shop/models/Item.dart';
+import '../models/Item.dart';
+
+
+class ItemPage extends StatelessWidget {
+
+  const ItemPage({super.key});
+
+  static const routeName = '/item';
+
+  @override
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Item;
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Text(args.name),
+      ),
+      body: Center(
+        child: Text(args.price.toString()),
+      ),
+    );
+  }
+}
+```
+
+#### Hasil Akhir Praktikum
+
+![hasil](docs/l7.png)
+
+![hasil](docs/l7b.png)
+

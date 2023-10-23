@@ -8,11 +8,18 @@ class HomePage extends StatelessWidget {
   final List<Item> Items = [
     Item(name: 'Sugar', price: 5000),
     Item(name: 'Salt', price: 2000),
+    Item(name: 'Sepatu', price: 20000),
+    Item(name: 'Mouse', price: 150000),
+    Item(name: 'Beras', price: 12000),
   ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+       routes: {
+        ItemPage.routeName: (context) =>
+            const ItemPage(),
+      },
       home: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.green,
@@ -27,11 +34,7 @@ class HomePage extends StatelessWidget {
                 final item = Items[index];
                 return InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, ItemPage.routeName,
-                        arguments: Item(
-                          name: item.name,
-                          price: item.price,
-                        ));
+                    Navigator.pushNamed(context, ItemPage.routeName, arguments: item);
                   },
                   child: Card(
                     child: Container(

@@ -4,11 +4,10 @@ import 'pages/item_page.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/',
-    routes: {
-      '/': (context) => HomePage(),
-      ItemPage.routeName: (context) => const ItemPage(),
+        routes: {
+      '/': (context) => HomePage(), // Route untuk MainApp
     },
+    initialRoute: '/', // Menunjuk ke route pertama
   ));
 }   
 
