@@ -74,9 +74,11 @@ Tambahkan method ini ke dalam class _FuturePageState yang berguna untuk mengambi
 <p class="image-container"><img style="width: 610.00px" src="docs/soal2b.png"></p>
 </li>
 </ul>
-
 </aside>
 
+### Jawab Soal 2
+
+![hasil](docs/soal2.png)
 
 ### Langkah 5: Tambah kode di ElevatedButton
 
