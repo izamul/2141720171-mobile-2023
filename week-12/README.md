@@ -470,7 +470,7 @@ Setelah Anda menyelesaikan praktikum 4, Anda dapat melanjutkan praktikum 5 ini. 
 
 ### Langkah 1: Buka file main.dart
 
-Tambahkan method ini ke dalam class _FuturePageState
+Tambahkan method ini ke dalam class \_FuturePageState
 
 ```dart
 Future returnError() async {
@@ -497,7 +497,6 @@ returnError(
 )
 ```
 
-
 ### Langkah 3: Run
 
 Lakukan run dan klik tombol GO! maka akan menghasilkan seperti gambar berikut.
@@ -521,10 +520,9 @@ Pada bagian debug console akan melihat teks Complete seperti berikut.
 
 ![jawab9](docs/soal9b.png)
 
-
 ### Langkah 4: Tambah method handleError()
 
-Tambahkan kode ini di dalam class _FutureStatePage
+Tambahkan kode ini di dalam class \_FutureStatePage
 
 ```dart
 Future handleError() async {
@@ -593,6 +591,174 @@ dan hasilnya adalah
 
             Langkah 1 menambahkan metode `returnError()` langsung ke dalam kelas `_FuturePageState`. Metode ini menggunakan `Future` untuk mengimplementasikan penundaan selama 2 detik dan kemudian melempar pengecualian dengan pesan "Something Terrible Happened!".
 
-            Sementara itu, Langkah 4 menambahkan metode `handleError()` di dalam kelas `_FuturePageState`. Metode ini menggunakan blok `try-catch` untuk menangkap kesalahan yang dihasilkan oleh metode `returnError()` dan menetapkannya ke dalam variabel `result`. Blok `finally` juga digunakan untuk mencetak "Complete" ke konsol setelah penanganan kesalahan selesai. 
+            Sementara itu, Langkah 4 menambahkan metode `handleError()` di dalam kelas `_FuturePageState`. Metode ini menggunakan blok `try-catch` untuk menangkap kesalahan yang dihasilkan oleh metode `returnError()` dan menetapkannya ke dalam variabel `result`. Blok `finally` juga digunakan untuk mencetak "Complete" ke konsol setelah penanganan kesalahan selesai.
 
             Dengan kata lain, kedua langkah ini bersama-sama menunjukkan cara menangani kesalahan yang mungkin terjadi dalam pemrograman asinkron di Flutter, dan perbedaan utamanya terletak pada penempatan metode dan nama metodenya.
+
+<hr>
+
+## Praktikum 6: Menggunakan Future dengan StatefulWidget
+
+Seperti yang Anda telah pelajari, Stateless widget tidak dapat menyimpan informasi (state), StatefulWidget dapat mengelola variabel dan properti dengan method setState(), yang kemudian dapat ditampilkan pada UI. State adalah informasi yang dapat berubah selama life cycle widget itu berlangsung.
+
+Ada 4 method utama dalam life cycle StatefullWidget:
+
+- initState(): dipanggil sekali ketika state dibangun. Bisa dikatakan ini juga sebagai konstruktor class.
+
+- build(): dipanggil setiap kali ada perubahan state atau UI. Method ini melakukan destroy UI dan membangun ulang dari nol.
+
+- deactive() dan dispose(): digunakan untuk menghapus widget dari tree, pada beberapa kasus dimanfaatkan untuk menutup koneksi ke database atau menyimpan data sebelum berpindah screen.
+
+Setelah Anda menyelesaikan praktikum 5, Anda dapat melanjutkan praktikum 6 ini. Selesaikan langkah-langkah praktikum berikut ini menggunakan editor Visual Studio Code (VS Code) atau Android Studio atau code editor lain kesukaan Anda. Jawablah di laporan praktikum Anda pada setiap soal yang ada di beberapa langkah praktikum ini.
+
+        Perhatian: Diasumsikan Anda telah berhasil menyelesaikan Praktikum 5.
+
+### Langkah 1: install plugin geolocator
+
+Tambahkan plugin geolocator dengan mengetik perintah berikut di terminal.
+
+```dart
+flutter pub add geolocator
+```
+
+### Langkah 2: Tambah permission GPS
+
+Jika Anda menargetkan untuk platform Android, maka tambahkan baris kode berikut di file android/app/src/main/androidmanifest.xml
+
+```dart
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+```
+
+Jika Anda menargetkan untuk platform iOS, maka tambahkan kode ini ke file Info.plist
+
+```dart
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>This app needs to access your location</string>
+```
+
+### Langkah 3: Buat file geolocation.dart
+
+Tambahkan file baru ini di folder lib project Anda.
+
+### Langkah 4: Buat StatefulWidget
+
+Buat class LocationScreen di dalam file geolocation.dart
+
+### Langkah 5: Isi kode geolocation.dart
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+
+class LocationScreen extends StatefulWidget {
+    const LocationScreen({super.key});
+
+    @override
+    state<LocationScreen> createState() => _LocationScreenState();
+}
+
+class _LocationScreenState extends State<LocationScreen> {
+    String myPosition = '';
+    @override
+    void iniState() {
+        super.initState();
+        getPosition().then((Position myPos){
+            myPosition =
+            'Latitude: ${myPos.latitude.toString()} - Longitude: {myPos.longitude.toString()}';
+            setState((){
+                myPosition = myPosition;
+            });
+        });
+    }
+
+
+@override
+Widget build(BuildContext context){
+    return Scaffold(
+        appBar: AppBar(title: const Text('Current Location')),
+        body: Center(child: Text(myPosition)),
+    );
+}
+
+Future<Position> getPosition() async{
+    await Geolocator.requestPermission();
+    await GeoLocator.isLocationServicesEnabled();
+    Position? position = await Geolocator.getCurrentPosition();
+    return position;
+}
+
+}
+```
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 11</strong></h3>
+<ul>
+<li>Tambahkan nama panggilan Anda pada tiap properti title sebagai identitas pekerjaan Anda.
+</li>
+</ul>
+</aside>
+
+### Jawab Soal 11
+
+![jawab11](docs/soal11.gif)
+
+### Langkah 6: Edit main.dart
+
+Panggil screen baru tersebut di file main Anda seperti berikut.
+
+```dart
+home: LocationScreen(),
+```
+
+![l6](docs/p6l7.png)
+
+### Langkah 7: Run
+
+Run project Anda di device atau emulator (bukan browser), maka akan tampil seperti berikut ini.
+
+### Langkah 8: Tambahkan animasi loading
+
+Tambahkan widget loading seperti kode berikut. Lalu hot restart, perhatikan perubahannya.
+
+```dart
+@override
+Widget build(BuildContext context){
+    final myWidget = myPosition == '' ? const CircularProgressIndicator() : const Text(myPosition);
+
+    return Scaffold(
+        appBar: AppBar(title: Text('Current Location')),
+        body: Center(child:myWidget),
+    )
+}
+```
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 12</strong></h3>
+<ul>
+<li>Jika Anda tidak melihat animasi loading tampil, kemungkinan itu berjalan sangat cepat. Tambahkan delay pada method getPosition() dengan kode await Future.delayed(const Duration(seconds: 3));
+</li>
+<li>Apakah Anda mendapatkan koordinat GPS ketika run di browser? Mengapa demikian?
+</li>
+<li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 12".
+</li>
+</ul>
+</aside>
+
+### Jawab Soal 12
+
+Setelah ditambah kode untuk menambah delay 3 detik
+
+```dart
+  Future<Position> getPosition() async {
+    await Geolocator.requestPermission();
+    await Geolocator.isLocationServiceEnabled();
+
+    // Tambahkan penundaan selama 3 detik di sini
+    await Future.delayed(const Duration(seconds: 3));
+
+    Position? position = await Geolocator.getCurrentPosition();
+    return position;
+  }
+```
+
+![soal12](docs/soal12.gif)
+
