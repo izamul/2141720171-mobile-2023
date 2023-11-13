@@ -732,16 +732,16 @@ Widget build(BuildContext context){
 }
 ```
 
-<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 12</strong></h3>
-<ul>
-<li>Jika Anda tidak melihat animasi loading tampil, kemungkinan itu berjalan sangat cepat. Tambahkan delay pada method getPosition() dengan kode await Future.delayed(const Duration(seconds: 3));
-</li>
-<li>Apakah Anda mendapatkan koordinat GPS ketika run di browser? Mengapa demikian?
-</li>
-<li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 12".
-</li>
-</ul>
-</aside>
+    <aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 12</strong></h3>
+    <ul>
+    <li>Jika Anda tidak melihat animasi loading tampil, kemungkinan itu berjalan sangat cepat. Tambahkan delay pada method getPosition() dengan kode await Future.delayed(const Duration(seconds: 3));
+    </li>
+    <li>Apakah Anda mendapatkan koordinat GPS ketika run di browser? Mengapa demikian?
+    </li>
+    <li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 12".
+    </li>
+    </ul>
+    </aside>
 
 ### Jawab Soal 12
 
@@ -762,3 +762,106 @@ Setelah ditambah kode untuk menambah delay 3 detik
 
 ![soal12](docs/soal12.gif)
 
+Dan ketika dicoba dichrome
+
+![soal12](docs/soal12.png)
+
+        Akses lokasi dapat digunakan pada perangkat Flutter yang menjalankan di Chrome karena Chrome mendukung API geolokasi HTML5 yang dapat diakses oleh aplikasi Flutter melalui plugin Geolocator.
+
+
+<hr>
+
+## Praktikum 7: Manajemen Future dengan FutureBuilder
+
+Pola ketika menerima beberapa data secara async dan melakukan update pada UI sebenarnya itu tergantung pada ketersediaan data. Secara umum fakta di Flutter, ada sebuah widget yang membantu Anda untuk memudahkan manajemen future yaitu widget FutureBuilder.
+
+Anda dapat menggunakan FutureBuilder untuk manajemen future bersamaan dengan update UI ketika ada update Future. FutureBuilder memiliki status future sendiri, sehingga Anda dapat mengabaikan penggunaan setState, Flutter akan membangun ulang bagian UI ketika update itu dibutuhkan.
+
+Untuk lebih memahami widget FutureBuilder, mari kita coba dengan praktikum ini.
+
+Setelah Anda menyelesaikan praktikum 6, Anda dapat melanjutkan praktikum 7 ini. Selesaikan langkah-langkah praktikum berikut ini menggunakan editor Visual Studio Code (VS Code) atau Android Studio atau code editor lain kesukaan Anda. Jawablah di laporan praktikum Anda pada setiap soal yang ada di beberapa langkah praktikum ini.
+
+        Perhatian: Diasumsikan Anda telah berhasil menyelesaikan Praktikum 6.
+
+### Langkah 1: Modifikasi method getPosition()
+
+Buka file geolocation.dart kemudian ganti isi method dengan kode ini.
+
+```dart
+Future<Position> getPosition() async {
+    await Geolocator.isLocationServiceEnabled();
+    await Future.delayed(const Duration(second: 3));
+    Position position = await Geolocator.getCurrentPosition();
+    return position;
+}
+```
+
+### Langkah 3: Tambah initState()
+
+Tambah method ini dan set variabel position
+
+```dart
+@override
+void initState(){
+    super.initState();
+    position = getPosition();
+}
+```
+
+### Langkah 4: Edit method build()
+
+Ketik kode berikut dan sesuaikan. Kode lama bisa Anda comment atau hapus.
+
+```dart
+@override
+Widget build(BuildContext context){
+    return Scaffold(
+        appBar: AppBar(title: Text('Current Location')),
+        body: Center(child: FutureBuilder(
+            future: position,
+            builder: (BuildContext context, AsyncSnapshot<Position> snapshot){
+                if (snapshot.connectionState == ConnectionState.waiting){
+                    return const CircularProgressIndicator();
+                }else if(snapshot.connectionState == ConnectionState.done){
+                    return Text(snapshot.data.toString());
+                }else{
+                    return const Text('');
+                }
+            },
+        ),
+        ));
+}
+```
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 13</strong></h3>
+<ul>
+<li>Apakah ada perbedaan UI dengan praktikum sebelumnya? Mengapa demikian?
+</li>
+<li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 13".
+</li>
+<li>Seperti yang Anda lihat, menggunakan FutureBuilder lebih efisien, clean, dan reactive dengan Future bersama UI.
+</li>
+</ul>
+</aside>
+
+### Langkah 5: Tambah handling error
+
+Tambahkan kode berikut untuk menangani ketika terjadi error. Kemudian hot restart.
+
+```dart
+else if (snapshot.connectionState == ConnectionState.done) {
+  if (snapshot.hasError) {
+     return Text('Something terrible happened!');
+  }
+  return Text(snapshot.data.toString());
+}
+```
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 14</strong></h3>
+<ul>
+<li>Apakah ada perbedaan UI dengan langkah sebelumnya? Mengapa demikian?
+</li>
+<li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 14".
+</li>
+</ul>
+</aside>
