@@ -35,7 +35,6 @@ dependencies:
 
 Jika Anda menggunakan macOS, Anda harus mengaktifkan fitur networking pada file macos/Runner/DebugProfile.entitlements dan macos/Runner/Release.entitlements dengan menambahkan kode berikut:
 
-
 ![macos](docs/p1l2.png)
 
 ### Langkah 3: Buka file main.dart
@@ -59,7 +58,7 @@ Ketiklah kode seperti berikut ini.
 
 ### Langkah 4: Tambah method getData()
 
-Tambahkan method ini ke dalam class _FuturePageState yang berguna untuk mengambil data dari API Google Books.
+Tambahkan method ini ke dalam class \_FuturePageState yang berguna untuk mengambil data dari API Google Books.
 
 ![langkah4](docs/p1l4.png)
 
@@ -102,7 +101,6 @@ Lakukan run aplikasi Flutter Anda. Anda akan melihat tampilan akhir seperti gamb
 
 ![hasil](docs/soal3.gif)
 
-
 <hr>
 
 ## Praktikum 2: Menggunakan await/async untuk menghindari callbacks
@@ -120,11 +118,9 @@ untuk pemahaman lebih lanjut dapat mengecek video berikut [klik link](https://yo
 
 Setelah Anda menyelesaikan praktikum 1, Anda dapat melanjutkan praktikum 2 ini. Selesaikan langkah-langkah praktikum berikut ini menggunakan editor Visual Studio Code (VS Code) atau Android Studio atau code editor lain kesukaan Anda. Jawablah di laporan praktikum Anda pada setiap soal yang ada di beberapa langkah praktikum ini.
 
-
 ### Langkah 1: Buka file main.dart
 
-Tambahkan tiga method berisi kode seperti berikut di dalam class _FuturePageState.
-
+Tambahkan tiga method berisi kode seperti berikut di dalam class \_FuturePageState.
 
 ```dart
 Future<int> returnOneAsync() async {
@@ -199,13 +195,12 @@ Akhirnya, run atau tekan F5 jika aplikasi belum running. Maka Anda akan melihat 
 
             Langkah 2 menambahkan metode count() di bawah ketiga metode sebelumnya. Metode count() berfungsi untuk menjumlahkan nilai yang dikembalikan oleh ketiga metode asinkron tersebut. Proses penjumlahan dilakukan secara berurutan, dimulai dari returnOneAsync(), diikuti returnTwoAsync(), dan terakhir returnThreeAsync(). Hasil penjumlahan kemudian disimpan dalam variabel total dan diperbarui ke antarmuka pengguna melalui setState() dengan menetapkan nilai result menjadi total yang diubah menjadi string. Seluruh proses ini dilakukan secara asinkron untuk memastikan tidak terjadi blocking pada antarmuka pengguna selama penundaan waktu yang diperlukan oleh metode asinkron.
 
-
 ![jawab 4](docs/soal4.gif)
-
 
 <hr>
 
 ## Praktikum 3: Menggunakan Completer di Future
+
 Menggunakan Future dengan then, catchError, async, dan await mungkin sudah cukup untuk banyak kasus, tetapi ada alternatif melakukan operasi async di Dart dan Flutter yaitu dengan class Completer.
 
 Completer membuat object Future yang mana Anda dapat menyelesaikannya nanti (late) dengan return sebuah value atau error.
@@ -222,7 +217,7 @@ import 'package:async/async.dart';
 
 ### Langkah 2: Tambahkan variabel dan method
 
-Tambahkan variabel late dan method di class _FuturePageState seperti ini.
+Tambahkan variabel late dan method di class \_FuturePageState seperti ini.
 
 ```dart
 late Completer completer;
@@ -247,11 +242,12 @@ Tambahkan kode berikut pada fungsi onPressed(). Kode sebelumnya bisa Anda commen
 getNumber().then((value) {
     setState((){
         result = value.toString();
-    }); 
+    });
 });
 ```
 
-### Langkah 4: 
+### Langkah 4:
+
 Terakhir, run atau tekan F5 untuk melihat hasilnya jika memang belum running. Bisa juga lakukan hot restart jika aplikasi sudah running. Maka hasilnya akan seperti gambar berikut ini. Setelah 5 detik, maka angka 42 akan tampil.
 
 <aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 5</strong></h3>
@@ -342,7 +338,7 @@ Setelah Anda menyelesaikan praktikum 3, Anda dapat melanjutkan praktikum 4 ini. 
 
 ### Langkah 1: Buka file main.dart
 
-Tambahkan method ini ke dalam class _FuturePageState
+Tambahkan method ini ke dalam class \_FuturePageState
 
 ```dart
   void returnFG(){
@@ -466,6 +462,99 @@ menjadi
 
 ## Praktikum 5: Menangani Respon Error pada Async Code
 
+Ada beberapa teknik untuk melakukan handle error pada code async. Pada praktikum ini Anda akan menggunakan 2 cara, yaitu then() callback dan pola async/await.
+
+Setelah Anda menyelesaikan praktikum 4, Anda dapat melanjutkan praktikum 5 ini. Selesaikan langkah-langkah praktikum berikut ini menggunakan editor Visual Studio Code (VS Code) atau Android Studio atau code editor lain kesukaan Anda. Jawablah di laporan praktikum Anda pada setiap soal yang ada di beberapa langkah praktikum ini.
+
+    Perhatian: Diasumsikan Anda telah berhasil menyelesaikan Praktikum 4.
+
+### Langkah 1: Buka file main.dart
+
+Tambahkan method ini ke dalam class \_FuturePageState
+
+```dart
+Future returnError() async {
+    await Future.delayed(const Duration(seconds: 2));
+    throw Exception('Something Terrible Happened!');
+}
+```
+
+### Langkah 2: ElevatedButton
+
+Ganti dengan kode berikut
+
+```dart
+returnError(
+    .then((value){
+        setState((){
+            result = 'Success';
+        });
+    }).catchError((onError){
+        setState((){
+            result = onError.toString();
+        });
+    }).whenComplete(() => print('Complete'));
+)
+```
 
 
+### Langkah 3: Run
 
+Lakukan run dan klik tombol GO! maka akan menghasilkan seperti gambar berikut.
+
+![langkah3](docs/p5l3.png)
+
+Pada bagian debug console akan melihat teks Complete seperti berikut.
+
+![langkah3](docs/p5l3b.png)
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 9</strong></h3>
+<ul>
+<li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 9".
+</li>
+</ul>
+</aside>
+
+### Jawab Soal 9
+
+![jawab9](docs/soal9.gif)
+
+![jawab9](docs/soal9b.png)
+
+
+### Langkah 4: Tambah method handleError()
+
+Tambahkan kode ini di dalam class _FutureStatePage
+
+```dart
+Future handleError() async {
+    try{
+        await returnError();
+    }catch(error){
+        setState((){
+            result = error.toString();
+        });
+    }finally{
+        print('Complete');
+    }
+}
+```
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 10</strong></h3>
+<ul>
+<li>Panggil method handleError() tersebut di ElevatedButton, lalu run. Apa hasilnya? Jelaskan perbedaan kode langkah 1 dan 4!
+</li>
+</ul>
+</aside>
+
+### Jawab Soal 10
+
+Untuk memenuhi kebutuhan tersebut maka ElevatedButton akan menjadi:
+
+```dart
+
+```
+
+dan hasilnya adalah
+
+![soal10](docs/soal10.gif)
