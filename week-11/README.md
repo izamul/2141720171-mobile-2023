@@ -503,10 +503,40 @@ Akhirnya, run atau tekan F5 jika aplikasi belum running. Tidak akan terlihat per
 ## Tugas Praktikum 2: InheritedWidget
 
 1. Selesaikan langkah-langkah praktikum tersebut, lalu dokumentasikan berupa GIF hasil akhir praktikum beserta penjelasannya di file README.md! Jika Anda menemukan ada yang error atau tidak berjalan dengan baik, silakan diperbaiki sesuai dengan tujuan aplikasi tersebut dibuat.
+
+    **Jawab**:
+
+    ![hasil](docs/p2.gif)
+
 2. Jelaskan mana yang dimaksud InheritedWidget pada langkah 1 tersebut! Mengapa yang digunakan InheritedNotifier?
+
+    **Jawab**:
+
+        Langkah 1 memperkenalkan konsep InheritedWidget dalam Flutter melalui pembuatan file plan_provider.dart. InheritedWidget memungkinkan penurunan data ke seluruh subtree widget di dalamnya tanpa perlu menyampaikannya secara langsung. Dalam kasus ini, PlanProvider meng-extend InheritedNotifier<ValueNotifier<Plan>>, menggunakan ValueNotifier yang terkait dengan ChangeNotifier untuk mengelola perubahan state pada objek Plan. Dengan pendekatan ini, widget-widget yang bergantung pada PlanProvider secara otomatis diberitahu dan dirender ulang ketika terjadi perubahan pada objek Plan, menyediakan manajemen state yang efisien dalam aplikasi Flutter.
+
 3. Jelaskan maksud dari method di langkah 3 pada praktikum tersebut! Mengapa dilakukan demikian?
+
+    **Jawab**:
+
+        Langkah 3 pada praktikum tersebut menambahkan dua metode ke dalam kelas model Plan pada file plan.dart. Metode pertama, int get completedCount, mengembalikan jumlah tugas yang telah selesai (yang memiliki properti complete bernilai true). Metode kedua, String get completenessMessage, mengembalikan pesan yang menyatakan sejauh mana kelengkapan tugas, dengan menampilkan jumlah tugas yang telah selesai dari total tugas yang ada.
+
+        Penambahan metode ini bermanfaat untuk memberikan informasi tentang kemajuan atau kelengkapan dari objek Plan dengan cara yang lebih terstruktur. Metode completedCount memberikan nilai numerik tentang berapa banyak tugas yang telah selesai, sementara metode completenessMessage memberikan pesan yang menyajikan informasi tersebut secara lebih deskriptif. Dengan cara ini, aplikasi dapat dengan mudah menampilkan dan menyajikan informasi tentang kemajuan tugas dalam bentuk yang lebih informatif dan mudah dimengerti bagi pengguna.
+
 4. Lakukan capture hasil dari Langkah 9 berupa GIF, kemudian jelaskan apa yang telah Anda buat!
+
+    **Jawab**:
+
+        Langkah 9 menambahkan widget SafeArea pada akhir widget Column dalam aplikasi Flutter. Widget SafeArea digunakan untuk memastikan bahwa elemen-elemen UI yang ditampilkan di layar tidak tumpang tindih dengan area yang aman, seperti notch pada perangkat mobile atau batas layar lainnya. Dalam konteks ini, SafeArea mengandung sebuah teks yang menampilkan pesan kelengkapan tugas dari objek Plan. Penempatan pesan di dalam SafeArea memastikan bahwa informasi tersebut ditampilkan secara aman tanpa terpengaruh oleh area yang tidak dapat digunakan di sekitar layar, sehingga meningkatkan kenyamanan pengguna dalam melihat informasi kemajuan tugas.
+
+      ![hasil](docs/p2.gif)
+
+      
+
 5. Kumpulkan laporan praktikum Anda berupa link commit atau repository GitHub ke spreadsheet yang telah disediakan!
+
+    **Jawab**:
+
+      Siap, sudah
 
 <hr>
 
