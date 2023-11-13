@@ -65,7 +65,7 @@ class Task {
 
 ### Langkah 3: Buat file plan.dart
 
-Kita juga perlu sebuah List untuk menyimpan daftar rencana dalam aplikasi to-do ini. Buat file plan.dart di dalam folder models dan isi kode seperti berikut.
+Kita juga perlu sebuah List untuk menyimpan daftar plan dalam aplikasi to-do ini. Buat file plan.dart di dalam folder models dan isi kode seperti berikut.
 
 ```dart
 import './task.dart';
@@ -147,7 +147,7 @@ class _PlanScreenState extends State<PlanScreen> {
 
 ### Langkah 7: buat method _buildAddTaskButton()
 
-Anda akan melihat beberapa error di langkah 6, karena method yang belum dibuat. Ayo kita buat mulai dari yang paling mudah yaitu tombol Tambah Rencana. Tambah kode berikut di bawah method build di dalam class _PlanScreenState.
+Anda akan melihat beberapa error di langkah 6, karena method yang belum dibuat. Ayo kita buat mulai dari yang paling mudah yaitu tombol Tambah plan. Tambah kode berikut di bawah method build di dalam class _PlanScreenState.
 
 
 ```dart
@@ -817,7 +817,7 @@ Widget _buildMasterPlans() {
          mainAxisAlignment: MainAxisAlignment.center,
          children: <Widget>[
            const Icon(Icons.note, size: 100, color: Colors.grey),
-           Text('Anda belum memiliki rencana apapun.',
+           Text('Anda belum memiliki plan apapun.',
               style: Theme.of(context).textTheme.headlineSmall)
          ]);
     }
@@ -842,3 +842,30 @@ Terakhir, run atau tekan F5 untuk melihat hasilnya jika memang belum running. Bi
 
 ## Tugas Praktikum 3: State di Multiple Screens
 
+1. Selesaikan langkah-langkah praktikum tersebut, lalu dokumentasikan berupa GIF hasil akhir praktikum beserta penjelasannya di file README.md! Jika Anda menemukan ada yang error atau tidak berjalan dengan baik, silakan diperbaiki sesuai dengan tujuan aplikasi tersebut dibuat.
+
+    **Jawab**:
+
+      ![hasil 3](docs/p3.gif)
+
+2. Berdasarkan Praktikum 3 yang telah Anda lakukan, jelaskan maksud dari gambar diagram berikut ini!
+
+    ![soal 2](docs/p3soal2.png)
+
+    **Jawab**:
+
+        Diagram tersebut mengilustrasikan struktur aplikasi dalam dua skenario berbeda. Pertama, ketika pengguna sedang dalam proses membuat plan baru, mereka berinteraksi dengan PlanCreatorScreen, di mana mereka dapat membuat plan baru. Data plan ini dikelola oleh PlanProvider. Skenario kedua terjadi ketika pengguna melihat tugas dari plan yang sudah ada di PlanScreen. Pengguna dapat melihat daftar plan dengan dukungan dari PlanProvider. Transisi antara dua tampilan ini terjadi melalui Navigator Push ketika pengguna beralih antara langkah-langkah pembuatan plan dan melihat plan yang sudah ada.
+
+3. Lakukan capture hasil dari Langkah 14 berupa GIF, kemudian jelaskan apa yang telah Anda buat!
+
+    **Jawab**:
+
+      ![hasil](docs/p3.gif)
+
+    Kita membuat sebuah program plan yang mana kita bisa mengelompokkan tiap-tiap tema plan, dan di tema masing-masing kita bisa membuat beberapa plan dan mencetangnya jika sudah.
+
+4. Kumpulkan laporan praktikum Anda berupa link commit atau repository GitHub ke spreadsheet yang telah disediakan!
+
+    **Jawab**:
+
+          Sudah, selesai.
