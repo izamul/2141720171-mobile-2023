@@ -317,3 +317,136 @@ getNumber().then((value) {
 ![soal 6](docs/soal5.gif)
 
 tidak terjadi apa-apa karena memang tidak ada proses kesalahan.
+
+<hr>
+
+## Praktikum 4: Memanggil Future secara paralel
+
+Ketika Anda membutuhkan untuk menjalankan banyak Future secara bersamaan, ada sebuah class yang dapat Anda gunakan yaitu: FutureGroup.
+
+FutureGroup tersedia di package async, yang mana itu harus diimpor ke file dart Anda, seperti berikut.
+
+```dart
+import 'package:async/async.dart';
+```
+
+    Catatan: Package dart:async dan async/async.dart merupakan library yang berbeda. Pada beberapa kasus, Anda membutuhkan kedua lib tersebut untuk me-run code async.
+
+FutureGroup adalah sekumpulan dari Future yang dapat run secara paralel. Ketika run secara paralel, maka konsumsi waktu menjadi lebih hemat (cepat) dibanding run method async secara single setelah itu method async lainnya.
+
+Ketika semua code async paralel selesai dieksekusi, maka FutureGroup akan return value sebagai sebuah List, sama juga ketika ingin menambahkan operasi paralel dalam bentuk List.
+
+Setelah Anda menyelesaikan praktikum 3, Anda dapat melanjutkan praktikum 4 ini. Selesaikan langkah-langkah praktikum berikut ini menggunakan editor Visual Studio Code (VS Code) atau Android Studio atau code editor lain kesukaan Anda. Jawablah di laporan praktikum Anda pada setiap soal yang ada di beberapa langkah praktikum ini.
+
+    Perhatian: Diasumsikan Anda telah berhasil menyelesaikan Praktikum 3.
+
+### Langkah 1: Buka file main.dart
+
+Tambahkan method ini ke dalam class _FuturePageState
+
+```dart
+  void returnFG(){
+    FutureGroup<int> futureGroup = FutureGroup<int>();
+    futureGroup.add(returnOneAsync());
+    futureGroup.add(returnTwoAsync());
+    futureGroup.add(returnThreeAsync());
+    futureGroup.close();
+    futureGroup.future.then((List <int> value){
+      int total = 0;
+      for (var element in value){
+        total += element;
+      }
+      setState((){
+        result = total.toString();
+      });
+    });
+  }
+```
+
+### Langkah 2: Edit onPressed()
+
+Anda bisa hapus atau comment kode sebelumnya, kemudian panggil method dari langkah 1 tersebut.
+
+```dart
+          ElevatedButton(
+            child: const Text('GO!'),
+            onPressed: () {
+              returnFG();
+              // getNumber().then((value) {
+              //   setState(() {
+              //     result = value.toString();
+              //   });
+              // }).catchError((e) {
+              //   result = 'An error occurred';
+              // });
+              // count();
+              // // setState(() {});
+              // // getData().then((value) {
+              // //   result = value.body.toString().substring(0, 450);
+              // //   setState(() {});
+              // // }).catchError((_) {
+              // //   result = "An error occurred";
+              // //   setState(() {});
+              // // });
+            },
+          ),
+```
+
+### Langkah 3: Run
+
+Anda akan melihat hasilnya dalam 3 detik berupa angka 6 lebih cepat dibandingkan praktikum sebelumnya menunggu sampai 9 detik.
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 7</strong></h3>
+<ul>
+<li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 7".
+</li>
+</ul>
+</aside>
+
+### Jawab Soal 7
+
+![soal7](docs/soal7.gif)
+
+### Langkah 4: Ganti variabel futureGroup
+
+Anda dapat menggunakan FutureGroup dengan Future.wait seperti kode berikut.
+
+```dart
+final futures = Future.wait<int>([
+  returnOneAsync(),
+  returnTwoAsync(),
+  returnThreeAsync(),
+]);
+```
+
+menjadi
+
+```dart
+  void returnFG() {
+    // FutureGroup<int> futureGroup = FutureGroup<int>();
+    // futureGroup.add(returnOneAsync());
+    // futureGroup.add(returnTwoAsync());
+    // futureGroup.add(returnThreeAsync());
+    // futureGroup.close();
+    final futures = Future.wait<int>([
+      returnOneAsync(),
+      returnTwoAsync(),
+      returnThreeAsync(),
+    ]);
+    futures.then((List<int> value) {
+      int total = 0;
+      for (var element in value) {
+        total += element;
+      }
+      setState(() {
+        result = total.toString();
+      });
+    });
+  }
+```
+
+## Praktikum 5: Menangani Respon Error pada Async Code
+
+
+
+
