@@ -201,3 +201,117 @@ Akhirnya, run atau tekan F5 jika aplikasi belum running. Maka Anda akan melihat 
 
 
 ![jawab 4](docs/soal4.gif)
+
+
+<hr>
+
+## Praktikum 3: Menggunakan Completer di Future
+Menggunakan Future dengan then, catchError, async, dan await mungkin sudah cukup untuk banyak kasus, tetapi ada alternatif melakukan operasi async di Dart dan Flutter yaitu dengan class Completer.
+
+Completer membuat object Future yang mana Anda dapat menyelesaikannya nanti (late) dengan return sebuah value atau error.
+
+Setelah Anda menyelesaikan praktikum 2, Anda dapat melanjutkan praktikum 3 ini. Selesaikan langkah-langkah praktikum berikut ini menggunakan editor Visual Studio Code (VS Code) atau Android Studio atau code editor lain kesukaan Anda. Jawablah di laporan praktikum Anda pada setiap soal yang ada di beberapa langkah praktikum ini.
+
+### Langkah 1: Buka main.dart
+
+Pastikan telah impor package async berikut.
+
+```dart
+import 'package:async/async.dart';
+```
+
+### Langkah 2: Tambahkan variabel dan method
+
+Tambahkan variabel late dan method di class _FuturePageState seperti ini.
+
+```dart
+late Completer completer;
+
+Future getNumber() {
+  completer = Completer<int>();
+  calculate();
+  return completer.future;
+}
+
+Future calculate() async {
+  await Future.delayed(const Duration(seconds : 5));
+  completer.complete(42);
+}
+```
+
+### Langkah 3: Ganti isi kode onPressed()
+
+Tambahkan kode berikut pada fungsi onPressed(). Kode sebelumnya bisa Anda comment.
+
+```dart
+getNumber().then((value) {
+    setState((){
+        result = value.toString();
+    }); 
+});
+```
+
+### Langkah 4: 
+Terakhir, run atau tekan F5 untuk melihat hasilnya jika memang belum running. Bisa juga lakukan hot restart jika aplikasi sudah running. Maka hasilnya akan seperti gambar berikut ini. Setelah 5 detik, maka angka 42 akan tampil.
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 5</strong></h3>
+<ul>
+<li>Jelaskan maksud kode langkah 2 tersebut!
+</li>
+<li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 5".
+</li>
+</ul>
+</aside>
+
+### Jawab Soal 5
+
+            Pada langkah 2, terdapat penambahan variabel completer dan dua metode baru dalam kelas _FuturePageState. Variabel completer bertipe Completer digunakan untuk mengelola sebuah objek yang akan menyelesaikan atau menolak suatu operasi asinkron di future. Metode getNumber() menginisialisasi completer sebagai objek baru dan kemudian memanggil metode calculate(). Metode calculate() merupakan metode asinkron yang menunda eksekusi selama 5 detik menggunakan Future.delayed dan kemudian menyelesaikan completer dengan nilai 42. Penggunaan Completer memungkinkan kontrol yang lebih baik dalam menangani hasil operasi asinkron, di mana metode getNumber() dapat mengembalikan completer.future untuk mendapatkan nilai yang akan diselesaikan di future.
+
+![soal5](docs/soal5.gif)
+
+### Langkah 5: Ganti method calculate()
+
+Gantilah isi code method calculate() seperti kode berikut, atau Anda dapat membuat calculate2()
+
+```dart
+  Future calculate() async {
+    try{
+    await Future.delayed(const Duration(seconds: 5));
+    completer.complete(42);
+    }
+    catch(_){
+      completer.completeError({});
+    }
+  }
+```
+
+### Langkah 6: Langkah 6: Pindah ke onPressed()
+
+Ganti menjadi kode seperti berikut.
+
+```dart
+getNumber().then((value) {
+  setState(() {
+    result = value.toString();
+  });
+}).catchError((e) {
+  result = 'An error occurred';
+});
+```
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 6</strong></h3>
+<ul>
+<li>Jelaskan maksud perbedaan kode langkah 2 dengan langkah 5-6 tersebut!
+</li>
+<li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 6".
+</li>
+</ul>
+</aside>
+
+### Jawab Soal 6
+
+            Pada Langkah 5, perubahan pada method calculate() bertujuan untuk menangani kesalahan yang mungkin terjadi selama eksekusi operasi asinkron. Dengan menambahkan blok try-catch, kode tersebut mencoba menyelesaikan completer dengan nilai 42 setelah penundaan 5 detik menggunakan await Future.delayed. Jika terjadi kesalahan selama eksekusi, blok catch akan menangkap kesalahan tersebut dan menyelesaikan completer dengan kesalahan yang ditandai sebagai objek kosong.
+
+            Langkah 6 menggantikan kode pada onPressed() dengan metode getNumber().then(...).catchError(...) untuk menangani hasil dan kesalahan dari operasi asinkron. Setelah operasi selesai, nilai yang diperoleh dari getNumber() akan diperbarui ke variabel result dan diubah menjadi string untuk ditampilkan. Jika terjadi kesalahan selama eksekusi, pesan 'An error occurred' akan ditetapkan ke variabel result. Pergantian ini membantu dalam menangani hasil dan kesalahan operasi asinkron secara lebih terstruktur.
+
+    

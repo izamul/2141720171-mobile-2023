@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:async/async.dart';
 
 void main() {
   runApp(const MainApp());
@@ -32,6 +33,24 @@ class FuturePage extends StatefulWidget {
 
 class _FuturePageState extends State<FuturePage> {
   String result = '';
+
+  late Completer completer;
+
+  Future getNumber() {
+    completer = Completer<int>();
+    calculate();
+    return completer.future;
+  }
+
+  Future calculate() async {
+    try {
+      await Future.delayed(const Duration(seconds: 5));
+      completer.complete(42);
+    } catch (_) {
+      completer.completeError({});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,15 +63,22 @@ class _FuturePageState extends State<FuturePage> {
           ElevatedButton(
             child: const Text('GO!'),
             onPressed: () {
-              count();
-              // setState(() {});
-              // getData().then((value) {
-              //   result = value.body.toString().substring(0, 450);
-              //   setState(() {});
-              // }).catchError((_) {
-              //   result = "An error occurred";
-              //   setState(() {});
-              // });
+              getNumber().then((value) {
+                setState(() {
+                  result = value.toString();
+                });
+              }).catchError((e) {
+                result = 'An error occurred';
+              });
+              // count();
+              // // setState(() {});
+              // // getData().then((value) {
+              // //   result = value.body.toString().substring(0, 450);
+              // //   setState(() {});
+              // // }).catchError((_) {
+              // //   result = "An error occurred";
+              // //   setState(() {});
+              // // });
             },
           ),
           const Spacer(),
@@ -92,7 +118,7 @@ class _FuturePageState extends State<FuturePage> {
     total = await returnOneAsync();
     total += await returnTwoAsync();
     total += await returnThreeAsync();
-    setState((){
+    setState(() {
       result = total.toString();
     });
   }
