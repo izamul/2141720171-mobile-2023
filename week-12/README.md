@@ -470,7 +470,7 @@ Setelah Anda menyelesaikan praktikum 4, Anda dapat melanjutkan praktikum 5 ini. 
 
 ### Langkah 1: Buka file main.dart
 
-Tambahkan method ini ke dalam class \_FuturePageState
+Tambahkan method ini ke dalam class _FuturePageState
 
 ```dart
 Future returnError() async {
@@ -552,9 +552,47 @@ Future handleError() async {
 Untuk memenuhi kebutuhan tersebut maka ElevatedButton akan menjadi:
 
 ```dart
-
+          ElevatedButton(
+            child: const Text('GO!'),
+            onPressed: () {
+              handleError();
+              // returnError().then((value) {
+              //   setState(() {
+              //     result = 'Success';
+              //   });
+              // }).catchError((onError) {
+              //   setState(() {
+              //     result = onError.toString();
+              //   });
+              //   // ignore: avoid_print
+              // }).whenComplete(() => print('Complete'));
+              // returnFG();
+              // getNumber().then((value) {
+              //   setState(() {
+              //     result = value.toString();
+              //   });
+              // }).catchError((e) {
+              //   result = 'An error occurred';
+              // });
+              // count();
+              // // setState(() {});
+              // // getData().then((value) {
+              // //   result = value.body.toString().substring(0, 450);
+              // //   setState(() {});
+              // // }).catchError((_) {
+              // //   result = "An error occurred";
+              // //   setState(() {});
+              // // });
+            },
+          ),
 ```
 
 dan hasilnya adalah
 
 ![soal10](docs/soal10.gif)
+
+            Langkah 1 menambahkan metode `returnError()` langsung ke dalam kelas `_FuturePageState`. Metode ini menggunakan `Future` untuk mengimplementasikan penundaan selama 2 detik dan kemudian melempar pengecualian dengan pesan "Something Terrible Happened!".
+
+            Sementara itu, Langkah 4 menambahkan metode `handleError()` di dalam kelas `_FuturePageState`. Metode ini menggunakan blok `try-catch` untuk menangkap kesalahan yang dihasilkan oleh metode `returnError()` dan menetapkannya ke dalam variabel `result`. Blok `finally` juga digunakan untuk mencetak "Complete" ke konsol setelah penanganan kesalahan selesai. 
+
+            Dengan kata lain, kedua langkah ini bersama-sama menunjukkan cara menangani kesalahan yang mungkin terjadi dalam pemrograman asinkron di Flutter, dan perbedaan utamanya terletak pada penempatan metode dan nama metodenya.
