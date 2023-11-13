@@ -445,6 +445,25 @@ menjadi
   }
 ```
 
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 8</strong></h3>
+<ul>
+<li>Jelaskan maksud perbedaan kode langkah 1 dan 4!
+</li>
+</ul>
+</aside>
+
+### Jawab Soal 8
+
+            angkah 1 dan Langkah 4 mencapai hasil yang sama, yaitu menggabungkan beberapa future menjadi satu dan menunggu hingga semuanya selesai sebelum melanjutkan. Namun, ada perbedaan pendekatan di antara keduanya.
+
+            Langkah 1 menggunakan pustaka async yang menyediakan FutureGroup untuk mengelola sekelompok future. Dalam method returnFG(), Anda menambahkan future ke FutureGroup, menutupnya, dan kemudian menunggu hasilnya menggunakan futureGroup.future. Ini memungkinkan Anda untuk menangani hasilnya dengan logika khusus dan melakukan iterasi pada nilai-nilai tersebut sebelum mengupdate UI.
+
+            Di sisi lain, Langkah 4 menggunakan Future.wait langsung untuk menggabungkan future menjadi satu future tunggal. Pendekatan ini lebih langsung dan mudah dibaca. Dalam kasus ini, Anda tidak perlu membungkusnya dengan FutureGroup dan dapat menangani hasilnya langsung setelah Future.wait selesai.
+
+            Pilihan antara Langkah 1 dan Langkah 4 dapat bergantung pada kebutuhan spesifik dan kompleksitas logika yang ingin Anda terapkan pada hasil future tersebut.
+
+<hr>
+
 ## Praktikum 5: Menangani Respon Error pada Async Code
 
 
