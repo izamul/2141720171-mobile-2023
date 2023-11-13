@@ -314,4 +314,6 @@ getNumber().then((value) {
 
             Langkah 6 menggantikan kode pada onPressed() dengan metode getNumber().then(...).catchError(...) untuk menangani hasil dan kesalahan dari operasi asinkron. Setelah operasi selesai, nilai yang diperoleh dari getNumber() akan diperbarui ke variabel result dan diubah menjadi string untuk ditampilkan. Jika terjadi kesalahan selama eksekusi, pesan 'An error occurred' akan ditetapkan ke variabel result. Pergantian ini membantu dalam menangani hasil dan kesalahan operasi asinkron secara lebih terstruktur.
 
-    
+![soal 6](docs/soal5.gif)
+
+tidak terjadi apa-apa karena memang tidak ada proses kesalahan.
