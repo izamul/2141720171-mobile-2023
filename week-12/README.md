@@ -872,6 +872,9 @@ else if (snapshot.connectionState == ConnectionState.done) {
 </ul>
 </aside>
 
+         ada perbedaan dalam UI setelah menambahkan handling error menggunakan kode di atas. Sebelumnya, jika terjadi kesalahan dalam pengambilan lokasi, UI hanya menampilkan teks kosong (Text('')). Setelah menambahkan handling error, jika terjadi kesalahan (snapshot.hasError), UI akan menampilkan pesan yang memberitahu pengguna bahwa "Something terrible happened!" di tempat teks kosong. Ini memberikan informasi yang lebih jelas kepada pengguna tentang kegagalan proses pengambilan lokasi dan meningkatkan pengalaman pengguna secara keseluruhan.
+
+![soal14](docs/soal14.gif)
 
 ## Praktikum 8: Navigation route dengan Future Function
 
