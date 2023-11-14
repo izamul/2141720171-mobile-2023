@@ -931,6 +931,31 @@ class _NavigationFirstState extends State<NavigationFirst> {
 </ul>
 </aside>
 
+### Jawab Soal 15
+
+```dart
+class _NavigationFirstState extends State<NavigationFirst> {
+    Color color = Colors.yellow.shade700;
+    @override
+    Widget build(BuildContext context){
+        return Scaffold(
+            backgroundColor: color,
+            appBar: AppBar(
+                title: const Text('Navigation First Screen Fikri Izamul'),
+            ),
+            body: Center(
+                child: ElevatedButton(
+                    child: const Text('Change Color'),
+                    onPressed: () {
+                        _navigateAndGetColor(context);
+                    }
+                ),
+            ),
+        );
+    }
+}
+```
+
 ### Langkah 3: Tambah method di class _NavigationFirstState
 
 Tambahkan method ini.
