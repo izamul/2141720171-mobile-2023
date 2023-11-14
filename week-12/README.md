@@ -876,6 +876,8 @@ else if (snapshot.connectionState == ConnectionState.done) {
 
 ![soal14](docs/soal14.gif)
 
+<hr>
+
 ## Praktikum 8: Navigation route dengan Future Function
 
 Praktikum kali ini Anda akan melihat manfaat Future untuk Navigator dalam transformasi Route menjadi sebuah function async. Anda akan melakukan push screen baru dan fungsi await menunggu data untuk melakukan update warna background pada screen.
@@ -1085,6 +1087,8 @@ Hasilnya akan seperti gambar berikut ini.
 
 ![soal16](docs/soal16.gif)
 
+<hr>
+
 ## Praktikum 9: Memanfaatkan async/await dengan Widget Dialog
 
 Pada praktikum ini, Anda akan memanfaatkan widget AlertDialog. Anda bisa manfaatkan widget ini misal untuk memilih operasi Save, Delete, Accept, dan sebagainya.
@@ -1094,3 +1098,135 @@ Setelah Anda menyelesaikan praktikum 8, Anda dapat melanjutkan praktikum 9 ini. 
         Perhatian: Diasumsikan Anda telah berhasil menyelesaikan Praktikum 8.
 
 ### Langkah 1: Buat file baru navigation_dialog.dart
+
+Buat file dart baru di folder lib project Anda.
+
+### Langkah 2: Isi kode navigation_dialog.dart
+
+```dart
+import 'package:flutter/material.dart';
+class NavigationDialogScreen extends StatefulWidget {
+  const NavigationDialogScreen({super.key});
+
+  @override
+  State<NavigationDialogScreen> createState() => _NavigationDialogScreenState();
+}
+
+class _NavigationDialogScreenState extends State<NavigationDialogScreen> {
+  Color color = Colors.blue.shade700;
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      backgroundColor: color,
+      appBar: AppBar(
+        title: const Text('Navigation Dialog Screen'),
+      ),
+      body: Center(
+        child: ElevatedButton(child: const Text('Change Color'), onPressed: () {}),
+      ),
+    );
+  }
+}
+```
+
+### Langkah 3: Tambah method async
+
+```dart
+_showColorDialog(BuildContext context) async {
+  await showDialog(
+    barrierDismissible:false,
+    context: context,
+    builder: (_) {
+      return AlertDialog(
+        title: const Text('Very Important Question'),
+        content: const Text('Please choose a Color'),
+        actions: <Widget>[
+          TextButton(
+            child:const Text('Red'),
+            onPressed: () {
+              colost = Colors.red.shade700;
+              Navigator.pop(context,color);
+            }
+          ),
+          TextButton(
+            child:const Text('Green'),
+            onPressed: () {
+              colost = Colors.green.shade700;
+              Navigator.pop(context,color);
+            }
+          ),
+          TextButton(
+            child:const Text('Blue'),
+            onPressed: () {
+              colost = Colors.blue.shade700;
+              Navigator.pop(context,color);
+            }
+          ),
+        ],
+      );
+    },
+  );
+  setState((){});
+}
+```
+
+### Langkah 4: Panggil method di ElevatedButton
+
+```dart
+onPressed: () {
+  _showColorDialog(context);
+}),
+```
+
+### Langkah 5: Edit main.dart
+
+Ubah properti home
+
+```dart
+home: const NavigationDialog(),
+```
+
+### Langkah 6: Run
+
+Coba ganti warna background dengan widget dialog tersebut. Jika terjadi error, silakan diperbaiki. Jika berhasil, akan tampil seperti gambar berikut.
+
+<aside style="color:white; background-color:green;"><h3 is-upgraded=""><strong>Soal 17</strong></h3>
+<ul>
+<li>Cobalah klik setiap button, apa yang terjadi ? Mengapa demikian ?
+</li>
+<li>Gantilah 3 warna pada langkah 3 dengan warna favorit Anda!
+</li>
+<li>Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W12: Soal 17".
+</li>
+</ul>
+</aside>
+
+### Jawab Soal 17
+
+        mengklik tombol "Change Color" pada aplikasi Flutter ini, sebuah dialog muncul dengan pertanyaan yang mengharuskan saya memilih warna. Dialog tersebut menawarkan pilihan warna seperti Purple, Green, dan Yellow. Setelah saya memilih salah satu warna, dialog ditutup, dan warna latar belakang layar utama akan berubah sesuai dengan warna yang dipilih. Ini terjadi karena setiap TextButton di dalam dialog memiliki fungsi onPressed yang mengubah nilai warna dan menutup dialog, sehingga efek pergantian warna terjadi setelah saya memilih warna pada dialog tersebut.
+
+```dart
+TextButton(
+    child: const Text('Purple'),
+    onPressed: () {
+      color = const Color.fromARGB(255, 135, 91, 246);
+      Navigator.pop(context, color);
+    }),
+TextButton(
+    child: const Text('Green'),
+    onPressed: () {
+      color = const Color.fromARGB(255, 106, 229, 112);
+      Navigator.pop(context, color);
+    }),
+TextButton(
+    child: const Text('Yellow'),
+    onPressed: () {
+      color = const Color.fromARGB(255, 236, 230, 43);
+      Navigator.pop(context, color);
+    }),
+```
+
+![Soal17](docs/Soal17.gif)
+
+
+### Terima kasih
