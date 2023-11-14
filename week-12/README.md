@@ -1053,8 +1053,37 @@ Lakukan run, jika terjadi error silakan diperbaiki.
 </ul>
 </aside>
 
+### Jawab Soal 16
+
+        Setiap tombol mewakili warna yang berbeda, seperti merah, kuning, atau biru. Setelah saya mengklik tombol, layar akan memperbarui warnanya sesuai dengan warna yang dipilih. Hal ini terjadi karena setiap tombol memiliki fungsi yang memanggil Navigator.pop(context, color), yang mengirimkan nilai warna ke layar sebelumnya (layar pertama) ketika tombol diklik. Sebagai hasilnya, latar belakang layar pertama akan berubah sesuai dengan warna yang dipilih, menciptakan efek pergantian warna yang dinamis sesuai dengan interaksi pengguna.
+
+```dart
+ElevatedButton(
+    child: const Text('Red'),
+    onPressed: () {
+        color = Colors.pink.shade400; // Warna merah
+        Navigator.pop(context, color);
+    }
+),
+ElevatedButton(
+    child: const Text('Yellow'),
+    onPressed: () {
+        color = Colors.yellow.shade500; // Warna kuning
+        Navigator.pop(context, color);
+    }
+),
+ElevatedButton(
+    child: const Text('Blue'),
+    onPressed: () {
+        color = Colors.blue.shade700; // Warna biru
+        Navigator.pop(context, color);
+    }
+),
+```
+
 Hasilnya akan seperti gambar berikut ini.
 
+![soal16](docs/soal16.gif)
 
 ## Praktikum 9: Memanfaatkan async/await dengan Widget Dialog
 
