@@ -63,6 +63,11 @@ class _StreamHomePageState extends State<StreamHopePage>{
 > - Lakukan commit hasil jawaban Soal 1 dengan pesan "W13: Jawaban Soal 1".
 
 
+### Jawaban soal 1
+
+![soal1](docs/soal1.png)
+
+
 ### Langkah 3: Buat file baru stream.dart
 
 Tambahkan variabel di dalam class ColorStream seperti berikut.
@@ -595,7 +600,17 @@ String values = '';
 Ketik kode seperti berikut.
 
 ```dart
+subscription = stream.listen((event){
+  setState((){
+    values += ' $event - ';
+  });
+});
 
+subscription2 = stream.listen((event){
+  setState((){
+    values += ' $event - ';
+  });
+});
 ```
 
 ### Langkah 3: Run
@@ -614,7 +629,11 @@ Ketik kode seperti berikut di method initState()
 
 
 ```dart
-
+void initState(){
+  numberStream = NumberStream();
+  numberStreamController = numberStream.controller;
+  Stream stream = numberStreamController.stream.asBrodcastStream();
+}
 ```
 
 ### Langkah 5: Edit method build()
@@ -622,7 +641,13 @@ Ketik kode seperti berikut di method initState()
 Tambahkan text seperti berikut
 
 ```dart
-
+child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(values),
+          ]
+)
 ```
 
 ### Langkah 6: Run
@@ -654,7 +679,7 @@ Buatlah sebuah project flutter baru dengan nama streambuilder_nama (beri nama pa
 Ketik kode ini
 
 ```dart
-
+class NumberStream{}
 ```
 
 ### Langkah 3: Tetap di file stream.dart
@@ -662,7 +687,17 @@ Ketik kode ini
 Ketik kode seperti berikut.
 
 ```dart
+import 'dart:math';
 
+class NumberStream{
+  Stream<int> getNumbers() async* {
+    yield* Stream.periodic(const Duration(seconds: 1), (int t){
+      Random random = Random();
+      int myNum = random.nextInt(10);
+      return myNum;
+    });
+  }
+}
 ```
 
 ### Langkah 4: Edit main.dart
@@ -671,7 +706,49 @@ Ketik kode seperti berikut ini.
 
 
 ```dart
+import 'package:flutter/material.dart';
+import 'stream.dart';
+import 'dart:async';
 
+void main(){
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget{
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: 'Stream',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: const StreamHomePage(),
+    );
+  }
+}
+
+class StreamHomePage extends StatefulWidget{
+  const StreamHomePage({super.key});
+
+  @override
+  State<StreamHomePage> createState() => _StreamHomePageState();
+}
+
+class _StreamHomePageState extends State<StreamHomePage>{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text('Stream'),
+      ),
+      body: Container(
+      ),
+      );
+  }
+}
 ```
 
 ### Langkah 5: Tambah variabel
@@ -679,7 +756,7 @@ Ketik kode seperti berikut ini.
 Di dalam class _StreamHomePageState, ketika variabel ini.
 
 ```dart
-
+late Stream<int> numberStream;
 ```
 
 ### Langkah 6: Edit initState()
@@ -687,13 +764,36 @@ Di dalam class _StreamHomePageState, ketika variabel ini.
 Ketik kode seperti berikut.
 
 ```dart
+@override
 
+void initState(){
+  numberStream = NumberStream().getNumbers();
+  super.initState();
+}
 ```
 
 ### Langkah 7: Edit method build()
 
 ```dart
-
+body: StreamBuilder(
+  stream: numberStream,
+  initialData: 0,
+  builder: (context, snapshot){
+    if(snapshot.hasError){
+      print('Error!');
+    }
+    if(snapshot.hasData){
+      return Center(
+        child: Text(
+          snapshot.data.toString(),
+          style: const TextStyle(fontSize: 96),
+    ));
+    
+    }else{
+      return const SizedBox.shrink();
+  }
+  },
+),
 ```
 
 ### Langkah 8: Run
@@ -731,13 +831,14 @@ Buatlah sebuah project flutter baru dengan nama bloc_random_nama (beri nama pang
 Ketik kode impor berikut ini.
 
 ```dart
-
+import 'dart:async';
+import 'dart:math';
 ```
 
 ### Langkah 3: Buat class RandomNumberBloc()
 
 ```dart
-
+class RandomNumberBlock{}
 ```
 
 ### Langkah 4: Buat variabel StreamController
@@ -745,25 +846,54 @@ Ketik kode impor berikut ini.
 Di dalam class RandomNumberBloc() ketik variabel berikut ini
 
 ```dart
-
+//StreamController for input events
+final _generateRandomController = StreamController<void>();
+//StreamController for output 
+final _randomNumberController = StreamController<int>();
+//Input Sink
+Sink<void> get generateRandom => _generateRandomController.sink;
+//Output Stream
+Stream<int> get randomNumber => _randomNumberController.stream;
+_secondsStreamController.sink;
 ```
 
 ### Langkah 5: Buat constructor
 
 ```dart
-
+RandomNumberBloc(){
+  _generateRandomController.stream.listen((_){
+    final random = Random().nextInt(10);
+    _randomNumberController.sink.add(random);
+  });
+}
 ```
 
 ### Langkah 6: Buat method dispose()
 
 ```dart
-
+void dispose(){
+  _generateRandomController.close();
+  _randomNumberController.close();
+}
 ```
 
 ### Langkah 7: Edit main.dart
 
 ```dart
+class MyApp extends StatelessWidget{
+  const MyApp({super.key});
 
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const RandomScreen(),
+    );
+  }
+}
 ```
 
 ### Langkah 8: Buat file baru random_screen.dart
@@ -775,7 +905,8 @@ Di dalam folder lib project Anda, buatlah file baru ini.
 Ketik kode ini di file baru random_screen.dart
 
 ```dart
-
+import 'package:flutter/material.dart';
+import 'random_bloc.dart';
 ```
 
 ### Langkah 10: Buat StatefulWidget RandomScreen
@@ -788,7 +919,7 @@ Buatlah di dalam file random_screen.dart
 Ketik kode ini di dalam class _RandomScreenState
 
 ```dart
-
+final _bloc = RandomNumberBloc();
 ```
 
 ### Langkah 12: Buat method dispose()
@@ -796,7 +927,11 @@ Ketik kode ini di dalam class _RandomScreenState
 Ketik kode ini di dalam class _StreamHomePageState
 
 ```dart
-
+@override
+void dispose(){
+  _bloc.dispose();
+  super.dispose();
+}
 ```
 
 ### Langkah 13: Edit method build()
@@ -804,7 +939,30 @@ Ketik kode ini di dalam class _StreamHomePageState
 Ketik kode ini di dalam class _StreamHomePageState
 
 ```dart
-
+@override
+Widget build(BuildContext context){
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Random Number'),
+    ),
+    body: Center(
+      child: StreamBuilder<int>(
+        stream: _bloc.randomNumber,
+        initialData: 0,
+        builder: (context, snapshot){
+          return Text(
+            'Random Number: ${snapshot.data}',
+            style: const TextStyle(fontSize: 24),
+          );
+        },
+      ),
+    ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () => _bloc.generateRandom.add(null),
+      child: const Icon(Icons.refresh),
+    ),
+  );
+},
 ```
 
 Run aplikasi, maka Anda akan melihat angka acak antara angka 0 sampai 9 setiap kali menekan tombol FloactingActionButton.
