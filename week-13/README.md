@@ -237,6 +237,14 @@ colorStream.getColors().listen((eventColor) {
 > - Jelaskan perbedaan menggunakan listen dan await for (langkah 9) !
 > - Lakukan commit hasil jawaban Soal 5 dengan pesan "W13: Jawaban Soal 5"
 
+### Jawaban Soal 5
+
+> Pada langkah 13, penggunaan listen dalam method changeColor() mengindikasikan bahwa kita ingin "mendengarkan" perubahan pada stream getColors(), yang berarti setiap kali ada perubahan, fungsi tertentu akan dijalankan. Sementara itu, pada langkah 9, penggunaan await for dalam method changeColor() menciptakan suatu proses yang secara bertahap "menunggu dan memproses" nilai-nilai dalam stream, sehingga kode akan menangguhkan eksekusi sampai nilai dalam stream tersedia untuk diproses. Meskipun keduanya mencapai hasil yang sama, yaitu mengubah warna latar belakang, perbedaan utamanya terletak pada cara kita memutuskan untuk menanggapi perubahan pada stream.
+
+> analoginya: Pada langkah 13, penggunaan listen dalam method changeColor() mengindikasikan bahwa kita ingin "mendengarkan" perubahan pada stream getColors(), yang berarti setiap kali ada perubahan, fungsi tertentu akan dijalankan. Sementara itu, pada langkah 9, penggunaan await for dalam method changeColor() menciptakan suatu proses yang secara bertahap "menunggu dan memproses" nilai-nilai dalam stream, sehingga kode akan menangguhkan eksekusi sampai nilai dalam stream tersedia untuk diproses. Meskipun keduanya mencapai hasil yang sama, yaitu mengubah warna latar belakang, perbedaan utamanya terletak pada cara kita memutuskan untuk menanggapi perubahan pada stream.
+
+![soal4](docs/soal4.gif)
+
 
 > Catatan: Stream di Flutter memiliki fitur yang powerfull untuk menangani data secara async. Stream dapat dimanfaatkan pada skenario dunia nyata seperti real-time messaging, unggah dan unduh file, tracking lokasi user, bekerja dengan data sensor IoT, dan lain sebagainya.
 
