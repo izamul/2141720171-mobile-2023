@@ -146,6 +146,10 @@ yield* Stream.periodic(
 > - Apa maksud isi perintah kode tersebut?
 > - Lakukan commit hasil jawaban Soal 3 dengan pesan "W13: Jawaban Soal 3"
 
+### Jawaban Soal 3
+
+> Keyword yield* digunakan untuk mengintegrasikan nilai dari stream periodik (dengan interval satu detik) ke dalam stream yang lebih besar, di mana setiap nilai yang dihasilkan oleh stream periodik adalah warna dari list warna.
+
 ### Langkah 7: Buka main.dart
 
 Ketik kode impor file ini pada file main.dart
