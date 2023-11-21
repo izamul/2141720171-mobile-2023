@@ -98,6 +98,26 @@ final List<Color> colors = [
 > - Tambahkan 5 warna lainnya sesuai keinginan Anda pada variabel colors tersebut
 > - Lakukan commist hasil jawaban Soal 2 dengan pesan "W13: Jawaban Soal 2"
 
+### Jawaban Soal 2
+
+kode dalam langkah 4 akan menjadi berikut:
+
+```dart
+class ColorStream {
+  final List<Color> colors = [
+    Colors.blueGrey,
+    Colors.amber,
+    Colors.deepPurple,
+    Colors.lightBlue,
+    Colors.teal,
+    Colors.red,
+    Colors.green,
+    Colors.indigo,
+    Colors.orange,
+    Colors.pink,
+  ];
+}
+```
 
 ### Langkah 5: Tambah method getColors()
 
