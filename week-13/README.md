@@ -163,7 +163,8 @@ import 'stream.dart';
 Ketik dua properti ini di dalam class `_StreamHomePageState`
 
 ```dart
-import 'stream.dart';
+Color bgColor = Colors.blueGrey;
+late ColorStream colorStream;
 ```
 
 ### Langkah 9: Tambah method changeColor()
@@ -171,7 +172,13 @@ import 'stream.dart';
 Tetap di file main, Ketik kode seperti berikut
 
 ```dart
-import 'stream.dart';
+void changeColor() async {
+  await for (var eventColor in colorStream.getColors()){
+    setState((){
+      bgColor = eventColor;
+    });
+  }
+}
 ```
 
 ### Langkah 10: Lakukan override initState()
@@ -209,6 +216,10 @@ Lakukan running pada aplikasi Flutter Anda, maka akan terlihat berubah warna bac
 > Soal 4
 > - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
 > - Lakukan commit hasil jawaban Soal 4 dengan pesan "W13: Jawaban Soal 4"
+
+### Jawaban Soal 4
+
+![soal4](docs/soal4.gif)
 
 ### Langkah 13: Ganti isi method changeColor()
 
