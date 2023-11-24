@@ -699,11 +699,14 @@ subscription2 = stream.listen((event){
 
 Lakukan run maka akan tampil error seperti gambar berikut.
 
-
-
 > Soal 10
 > - Jelaskan mengapa error itu bisa terjadi ?
 
+### Jawaban Soal 10
+
+![soal10](docs/soal10.png)
+
+> Kode ini menyebabkan error "bad state: stream has already been listened to" karena stream yang sama (stream) di-subscribe (didengarkan) lebih dari satu kali. Pada bagian initState(), terdapat dua subscription yang dilakukan pada stream yang sama menggunakan subscription dan subscription2. Hal ini menyebabkan kesalahan karena Flutter tidak mengizinkan multiple subscriptions pada satu stream secara bersamaan.
 
 ### Langkah 4: Set broadcast stream
 

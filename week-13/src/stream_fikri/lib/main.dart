@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+import 'dart:html';
 
 import 'package:stream_fikri/stream.dart';
 
@@ -38,6 +39,9 @@ class _StreamHomePageState extends State<StreamHomePage> {
   late NumberStream numberStream;
   late StreamTransformer<int, int> transformer;
   late StreamSubscription subscription;
+
+  late StreamSubscription subscription2;
+  String values = '';
 
   void changeColor() async {
     print('Changing color...');
@@ -102,21 +106,33 @@ class _StreamHomePageState extends State<StreamHomePage> {
     numberStreamController = numberStream.controller;
     Stream stream = numberStreamController.stream;
 
-    subscription = stream.listen(
-      (event) {
-        setState(() {
-          lastNumber = event;
-        });
-      },
-      onError: (error) {
-        setState(() {
-          lastNumber = -1;
-        });
-      },
-      onDone: () {
-        print('OnDone was called');
-      },
-    );
+    // subscription = stream.listen(
+    //   (event) {
+    //     setState(() {
+    //       lastNumber = event;
+    //     });
+    //   },
+    //   onError: (error) {
+    //     setState(() {
+    //       lastNumber = -1;
+    //     });
+    //   },
+    //   onDone: () {
+    //     print('OnDone was called');
+    //   },
+    // );
+
+    subscription = stream.listen((event) {
+      setState(() {
+        values += ' $event - ';
+      });
+    });
+
+    subscription2 = stream.listen((event) {
+      setState(() {
+        values += ' $event - ';
+      });
+    });
 
     super.initState();
   }
