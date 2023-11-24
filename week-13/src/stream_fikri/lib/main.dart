@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stream_fikri/stream.dart';
 import 'dart:async';
 import 'dart:math';
+
+import 'package:stream_fikri/stream.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,17 +34,13 @@ class _StreamHomePageState extends State<StreamHomePage> {
   Color bgColor = Colors.blueGrey;
   late ColorStream colorStream;
   int lastNumber = 0;
-  late StreamController numberStreamController;
+  late StreamController<int> numberStreamController;
   late NumberStream numberStream;
 
   void changeColor() async {
-    // await for (var eventColor in colorStream.getColors()) {
-    //   setState(() {
-    //     bgColor = eventColor;
-    //   });
-    // }
-
+    print('Changing color...');
     colorStream.getColors().listen((eventColor) {
+      print('Color changed: $eventColor');
       setState(() {
         bgColor = eventColor;
       });
@@ -64,12 +61,18 @@ class _StreamHomePageState extends State<StreamHomePage> {
 
   @override
   void initState() {
+    print('Initializing state...');
+    colorStream = ColorStream();
     numberStream = NumberStream();
     numberStreamController = numberStream.controller;
-    Stream stream = numberStreamController.stream;
+    Stream<int> stream = numberStreamController.stream;
     stream.listen((event) {
       setState(() {
         lastNumber = event;
+      });
+    }).onError((error) {
+      setState(() {
+        lastNumber = -1;
       });
     });
     super.initState();
@@ -78,22 +81,39 @@ class _StreamHomePageState extends State<StreamHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Stream Fikri'),
+      appBar: AppBar(
+        backgroundColor: Colors.teal,
+        title: const Text('Stream Fikri',
+            style: TextStyle(
+              color: Colors.white, // Set the text color
+            )),
+      ),
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(lastNumber.toString()),
+            ElevatedButton(
+              onPressed: () => addRandomNumber(),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(5.0), // Adjust the radius as needed
+                ),
+                backgroundColor: Colors.teal, // Set the background color
+              ),
+              child: const Text(
+                'New Random Number',
+                style: TextStyle(
+                  color: Colors.white, // Set the text color
+                ),
+              ),
+            )
+          ],
         ),
-        body: SizedBox(
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(lastNumber.toString()),
-              ElevatedButton(
-                onPressed: () => addRandomNumber(),
-                child: const Text('New Random Number'),
-              )
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }

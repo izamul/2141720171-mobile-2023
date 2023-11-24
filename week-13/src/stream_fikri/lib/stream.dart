@@ -29,8 +29,12 @@ class NumberStream {
   void addNumberToSink(int newNumber) {
     controller.sink.add(newNumber);
   }
-  
+
+  addError() {
+    controller.sink.addError('error');
+  }
+
   close() {
     controller.close();
-}
+  }
 }

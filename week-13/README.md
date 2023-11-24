@@ -57,6 +57,7 @@ class _StreamHomePageState extends State<StreamHopePage>{
   }
 }
 ```
+
 > soal 1
 > - Tambahkan nama panggilan Anda pada title app sebagai identitas hasil pekerjaan Anda.
 > - Gantilah warna tema aplikasi sesuai kesukaan Anda.
@@ -448,6 +449,17 @@ void addRandomNumber(){
 > - Jelaskan maksud kode langkah 13 sampai 15 tersebut!
 > - Kembalikan kode seperti semula pada Langkah 15, comment addError() agar Anda dapat melanjutkan ke praktikum 3 berikutnya.
 > - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 7".
+
+### Jawaban Soal 7
+
+
+> Langkah 13 menambahkan sebuah method baru bernama addError ke dalam file stream.dart. Method ini berfungsi untuk menambahkan pesan error ke dalam sink controller pada ColorStream.
+
+> Langkah 14 berfokus pada file main.dart, di mana sebuah method baru yang disebut onError ditambahkan ke dalam method listen pada fungsi initState(). Method ini akan menangani error yang terjadi pada stream, dan jika terjadi error, maka nilai dari lastNumber di-set menjadi -1.
+
+> Langkah 15 adalah penyesuaian pada method addRandomNumber(). Dua baris kode yang menghasilkan angka acak di-comment, dan digantikan dengan pemanggilan method addError() dari numberStream. Dengan ini, saat tombol "New Random Number" ditekan, pesan error akan ditambahkan ke dalam stream, dan onError yang ditambahkan pada langkah sebelumnya akan menangani error tersebut dengan mengubah nilai lastNumber menjadi -1.
+
+![soal7](docs/soal7.gif)
 
 <hr>
 
