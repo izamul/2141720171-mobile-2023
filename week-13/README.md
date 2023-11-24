@@ -514,12 +514,16 @@ super.initState();
 Terakhir, run atau tekan F5 untuk melihat hasilnya jika memang belum running. Bisa juga lakukan hot restart jika aplikasi sudah running. Maka hasilnya akan seperti gambar berikut ini. Anda akan melihat tampilan angka dari 0 hingga 90.
 
 
-
-
 > Soal 8
 > - Jelaskan maksud kode langkah 1-3 tersebut!
 > - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
 > - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 8".
+
+### Jawaban Soal 8
+
+> Langkah 1 hingga 3 dilakukan dalam file main.dart untuk melakukan transformasi pada data yang diterima melalui stream. Pada langkah pertama, sebuah variabel baru bernama transformer dideklarasikan di dalam kelas _StreamHomePageState. Langkah kedua menambahkan kode di dalam fungsi initState untuk menginisialisasi transformer tersebut sebagai StreamTransformer<int, int>, yang menggandakan nilai yang diterima dari stream dan menangani error dengan mengganti nilai menjadi -1. Langkah terakhir, pada fungsi initState, menghubungkan transformer ke stream dengan menggunakan transform dan kemudian mendengarkan perubahan pada stream. Jika nilai baru diterima, nilai lastNumber diubah dan jika terjadi error, nilai lastNumber diubah menjadi -1.
+
+![soal8](docs/soal8.gif)
 
 <hr>
 
