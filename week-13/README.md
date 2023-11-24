@@ -540,7 +540,7 @@ Setelah Anda menyelesaikan praktikum 3, Anda dapat melanjutkan praktikum 4 ini. 
 Tambahkan variabel berikut di class _StreamHomePageState
 
 ```dart
-late StreamSubscription subsctiption;
+late StreamSubscription subscription;
 ```
 
 ### Langkah 2: Edit initState()
@@ -635,10 +635,28 @@ void addRandomNumber(){
 
 Anda akan melihat dua button seperti gambar berikut.
 
+![soal9](docs/soal9.gif)
 
 ### Langkah 10: Tekan button ‘Stop Subscription'
 
 Anda akan melihat pesan di Debug Console seperti berikut.
+
+![soal9](docs/p4l10.png)
+
+> Soal 9 
+> - Jelaskan maksud kode langkah 2, 6 dan 8 tersebut!
+> - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+> - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 9".
+
+### Jawaban Soal 9
+
+> Langkah 2, 6, dan 8 bertujuan untuk mengelola subscription terhadap stream. Pada langkah 2, sebuah variabel subscription diperkenalkan untuk menangani langganan terhadap stream yang berasal dari NumberStream. Dalam initState(), langganan (subscription) dibuat dengan menggunakan metode listen, sehingga setiap kali ada perubahan nilai pada stream, fungsi setState akan memperbarui nilai lastNumber sesuai dengan nilai yang diterima.
+
+> Langkah 6, diimplementasikan pada method dispose(), di mana subscription dihentikan (cancelled) agar tidak ada lagi langganan yang aktif setelah widget di-dispose. Ini memastikan tidak ada memori yang bocor (memory leaks) karena langganan yang tidak diperlukan.
+
+> Langkah 8 terkait dengan perubahan pada method addRandomNumber(). Sebelum menambahkan nomor acak ke dalam stream, langkah ini memeriksa apakah stream sudah ditutup (isClosed). Jika stream sudah ditutup, maka nilai lastNumber di-set menjadi -1, mengindikasikan bahwa operasi tidak dapat dilanjutkan karena stream sudah tidak aktif. Ini membantu mencegah akses ke stream yang sudah ditutup dan memberikan umpan balik yang sesuai kepada pengguna melalui perubahan nilai lastNumber.
+
+![soal9](docs/soal9.gif)
 
 <hr>
 
