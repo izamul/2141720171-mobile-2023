@@ -354,7 +354,7 @@ void initState() {
 
 ```dart
 @override
-void dispopse () {
+void dispose () {
     numberStreamController.close();
     super.dispose();
 }
@@ -373,7 +373,7 @@ void addRandomNumber() {
 ### Langkah 11: Edit method build()
 
 ```dart
-boyd: SizedBox(
+body: SizedBox(
     width: double.infinity,
     child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -384,7 +384,7 @@ boyd: SizedBox(
                 onPressed: () => addrandomNumber(),
                 child: Text('New Random Number'),
             )
-        ].
+        ],
     ),
 )
 ```
@@ -393,12 +393,17 @@ boyd: SizedBox(
 
 Lakukan running pada aplikasi Flutter Anda, maka akan terlihat seperti gambar berikut.
 
-
-
 > Soal 6
 > - Jelaskan maksud kode langkah 8 dan 10 tersebut!
 > - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
 > - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 6".
+
+### Jawaban Soal 6
+
+> Dalam langkah 8, dalam metode `initState()`, kode menginisialisasi objek `NumberStream` yang mengelola stream angka. Selanjutnya, dari objek tersebut, diambil controller dan stream-nya. Dengan mendaftarkan fungsi callback melalui `listen` pada stream, setiap kali ada angka baru, nilai `lastNumber` dalam state diperbarui, menyebabkan pembaruan antarmuka pengguna. Pada langkah 10, method `addRandomNumber()` menambahkan fungsionalitas untuk menyisipkan angka acak ke dalam stream melalui objek `NumberStream`, memungkinkan aplikasi untuk secara dinamis menambahkan angka dan mengamati perubahan yang sesuai pada tampilan pengguna.
+
+
+![soal6](docs/soal6.gif)
 
 ### Langkah 13: Buka stream.dart
 
