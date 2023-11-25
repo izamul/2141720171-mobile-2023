@@ -1069,3 +1069,9 @@ Run aplikasi, maka Anda akan melihat angka acak antara angka 0 sampai 9 setiap k
 > - Jelaskan maksud praktikum ini ! Dimanakah letak konsep pola BLoC-nya ?
 > - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
 > - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 13".
+
+### Jawaban Soal 13
+
+> Pada praktikum ini, konsep pola BLoC diterapkan dengan menempatkan logika bisnis dalam kelas RandomNumberBloc, yang bertanggung jawab untuk mengelola aliran data dan merespons peristiwa. Sementara itu, kelas RandomScreen berfungsi sebagai tampilan UI yang berinteraksi dengan BLoC, mengelola keadaan aplikasi, dan menampilkan tampilan sesuai dengan data yang dihasilkan oleh BLoC. Dengan pendekatan ini, BLoC membantu memisahkan tanggung jawab antara logika bisnis dan tampilan UI, meningkatkan keterbacaan, pemeliharaan, dan pengujian kode dalam pengembangan aplikasi Flutter.
+
+![soal13](docs/soal13.gif)
