@@ -894,6 +894,15 @@ Hasilnya, setiap detik akan tampil angka baru seperti berikut.
 > - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
 > - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 12".
 
+### Jawaban Soal 12
+
+> Langkah 3: Pada langkah ini, kita membuat kelas `NumberStream` yang menyediakan metode `getNumbers()`. Metode ini menghasilkan stream berupa deretan angka acak yang diperbarui setiap detiknya. Penggunaan `Stream.periodic` digunakan untuk menghasilkan nilai setiap detik dengan menggunakan fungsi lambda yang mengembalikan angka acak antara 0 dan 9. Stream ini nantinya akan digunakan dalam aplikasi untuk memperbarui tampilan setiap detiknya.
+
+> Langkah 7: Pada langkah ini, kita menggunakan widget `StreamBuilder` dalam metode `build()` untuk membangun antarmuka pengguna. Widget ini memonitor stream `numberStream` yang telah dibuat sebelumnya di langkah 3. Ketika ada perubahan pada stream, widget ini secara otomatis membangun ulang tampilan sesuai dengan data terbaru dari stream tersebut. Jika ada kesalahan dalam stream, pesan "Error!" akan dicetak ke konsol. Jika data tersedia, widget `Text` akan menampilkan nilai terbaru dari stream tersebut dengan ukuran teks 96, sehingga memvisualisasikan angka acak dalam tampilan aplikasi Flutter.
+
+![soal12](docs/soal12.gif)
+
+
 <hr>
 
 ## Praktikum 7: BLoC Pattern
