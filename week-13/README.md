@@ -717,7 +717,7 @@ Ketik kode seperti berikut di method initState()
 void initState(){
   numberStream = NumberStream();
   numberStreamController = numberStream.controller;
-  Stream stream = numberStreamController.stream.asBrodcastStream();
+  Stream stream = numberStreamController.stream.asBroadcastStream();
 }
 ```
 
@@ -739,13 +739,16 @@ child: Column(
 
 Tekan button ‘New Random Number' beberapa kali, maka akan tampil teks angka terus bertambah sebanyak dua kali.
 
-
-
 > Soal 11
 > - Jelaskan mengapa hal itu bisa terjadi ?
 > - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
 > - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 10,11".
 
+### Jawaban Soal 11
+
+> Karena terdapat duplikasi subscription pada stream yang sama dalam metode initState, sehingga akan menambahkan dua kali pada setiap pembaruan stream
+
+![soal11](docs/soal11.gif)
 
 <hr>
 
